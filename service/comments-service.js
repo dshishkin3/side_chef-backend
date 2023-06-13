@@ -7,9 +7,6 @@ class CommentsService {
     const recipe = await CommentsModel.findOne({ recipeId });
 
     if (recipe) {
-      const indexExistRating = recipe.comments.findIndex(
-        (rating) => rating.userId === userId
-      );
       recipe.comments.push({ userId, text });
       await recipe.save();
     } else {
