@@ -10,15 +10,8 @@ class CommentsService {
       const indexExistRating = recipe.comments.findIndex(
         (rating) => rating.userId === userId
       );
-
-      if (indexExistRating < 0) {
-        recipe.comments.push({ userId, text });
-        await recipe.save();
-      } else {
-        recipe.comments[indexExistRating].text = text;
-        recipe.markModified("comments");
-        await recipe.save();
-      }
+      recipe.comments.push({ userId, text });
+      await recipe.save();
     } else {
       const newRecipe = new CommentsModel({
         recipeId,
