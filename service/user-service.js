@@ -94,6 +94,7 @@ class UserService {
       form.password = await bcrypt.hash(form.password, 3);
     }
 
+
     if (form.email) {
       const candidate = await UserModel.findOne({ email: form.email });
       if (candidate) {

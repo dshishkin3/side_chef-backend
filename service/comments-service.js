@@ -3,16 +3,16 @@ const CommentsModel = require("../models/comments-model");
 const ApiError = require("../exceptions/api-error");
 
 class CommentsService {
-  async addComment(userId, recipeId, text) {
+  async addComment(userId, recipeId, image, text) {
     const recipe = await CommentsModel.findOne({ recipeId });
 
     if (recipe) {
-      recipe.comments.push({ userId, text });
+      recipe.comments.push({ userId, image, text });
       await recipe.save();
     } else {
       const newRecipe = new CommentsModel({
         recipeId,
-        comments: [{ userId, text }],
+        comments: [{ userId, image, text }],
       });
       await newRecipe.save();
       return newRecipe;
