@@ -51,7 +51,7 @@ router.post(
   body("userId").isString(),
   body("recipeId").isString(),
   body("text").isString(),
-  body("image").isString(),
+  body("image").isString().optional(),
   commentsController.addComment
 );
 router.post(
@@ -59,16 +59,19 @@ router.post(
   authMiddleware,
   ImageCommentController.uploadImage
 );
-router.post(
-  "/uploadAvatar",
-  authMiddleware,
-  AvatarController.uploadAvatar
-)
+router.post("/uploadAvatar", authMiddleware, AvatarController.uploadAvatar);
 
 // PUT
-router.put("/update",
+router.put(
+  "/update",
   authMiddleware,
-  userController.update);
+  body("id").isString(),
+  body("avatar").isString().optional(),
+  body("username").isString().optional(),
+  body("email").isString().optional(),
+  body("password").isString().optional(),
+  userController.update
+);
 
 // DELETE
 router.delete(

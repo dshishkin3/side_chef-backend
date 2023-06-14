@@ -24,6 +24,7 @@ class UserService {
       favorites: [],
       password: hashPassword,
       activationLink,
+      avatar: "",
     });
     await mailService.sendActivationMail(
       email,
@@ -93,7 +94,6 @@ class UserService {
     if (form.password) {
       form.password = await bcrypt.hash(form.password, 3);
     }
-
 
     if (form.email) {
       const candidate = await UserModel.findOne({ email: form.email });
