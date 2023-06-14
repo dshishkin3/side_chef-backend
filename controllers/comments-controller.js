@@ -10,9 +10,9 @@ class CommentsController {
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest("Validation error", errors.array()));
       }
-      const { userId, recipeId, text } = req.body;
+      const { userId, recipeId, image, text } = req.body;
 
-      const userData = await commentsService.addComment(userId, recipeId, text);
+      const userData = await commentsService.addComment(userId, recipeId, image, text);
       return res.json(userData);
     } catch (e) {
       next(e);

@@ -6,6 +6,8 @@ const authMiddleware = require("../middlewares/auth-middleware");
 const userController = require("../controllers/user-controller");
 const ratingsController = require("../controllers/ratings-controller");
 const commentsController = require("../controllers/comments-controller");
+const ImageCommentController = require("../controllers/image-comment-controller");
+const AvatarController = require("../controllers/avatar-controller");
 
 // GET
 router.get("/activate/:link", userController.activate);
@@ -45,15 +47,28 @@ router.post(
 );
 router.post(
   "/addComment",
-  authMiddleware,
+
   body("userId").isString(),
   body("recipeId").isString(),
   body("text").isString(),
+  body("image").isString(),
   commentsController.addComment
 );
+router.post(
+  "/uploadCommentImage",
+  authMiddleware,
+  ImageCommentController.uploadImage
+);
+router.post(
+  "/uploadAvatar",
+  authMiddleware,
+  AvatarController.uploadAvatar
+)
 
 // PUT
-router.put("/update", authMiddleware, userController.update);
+router.put("/update",
+  authMiddleware,
+  userController.update);
 
 // DELETE
 router.delete(

@@ -7,6 +7,7 @@ const UserSchema = new Schema({
   isActivated: { type: Boolean, default: false },
   activationLink: { type: String },
   favorites: { type: Array, default: [] },
+  avatar: String,
 });
 
 module.exports = model("User", UserSchema);

@@ -1,5 +1,6 @@
 const RatingsModel = require("../models/ratings-model");
 
+
 class RatingsService {
   async setRating(userId, recipeId, score) {
     const recipe = await RatingsModel.findOne({ recipeId });
