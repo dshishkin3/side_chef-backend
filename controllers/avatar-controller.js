@@ -1,4 +1,5 @@
 const ImageService = require("../service/image-service");
+
 class AvatarController {
     async uploadAvatar(req, res, next) {
         try {
@@ -9,4 +10,5 @@ class AvatarController {
         }
     }
 }
+
 module.exports = new AvatarController();

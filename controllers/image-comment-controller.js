@@ -10,4 +10,5 @@ class ImageCommentController {
         }
     }
 }
+
 module.exports = new ImageCommentController();

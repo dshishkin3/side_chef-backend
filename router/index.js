@@ -47,7 +47,7 @@ router.post(
 );
 router.post(
   "/addComment",
-
+  authMiddleware,
   body("userId").isString(),
   body("recipeId").isString(),
   body("text").isString(),
