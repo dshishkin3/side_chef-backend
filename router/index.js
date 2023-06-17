@@ -8,12 +8,13 @@ const ratingsController = require("../controllers/ratings-controller");
 const commentsController = require("../controllers/comments-controller");
 const ImageCommentController = require("../controllers/image-comment-controller");
 const AvatarController = require("../controllers/avatar-controller");
+const ReviewsController = require("../controllers/reviews-controller");
 
 // GET
 router.get("/activate/:link", userController.activate);
 router.get("/refresh", userController.refresh);
 router.get("/users", authMiddleware, userController.getUsers);
-router.get("/rating/:id", ratingsController.getRating);
+router.get("/review/:id", ReviewsController.getReview);
 
 // POST
 router.post(
@@ -38,21 +39,15 @@ router.post(
   userController.addToFavorites
 );
 router.post(
-  "/setRating",
+  "/addReview",
   authMiddleware,
   body("userId").isString(),
   body("recipeId").isString(),
   body("score").isInt(),
-  ratingsController.setRating
-);
-router.post(
-  "/addComment",
-  authMiddleware,
-  body("userId").isString(),
-  body("recipeId").isString(),
   body("text").isString(),
   body("image").isString().optional(),
-  commentsController.addComment
+  body("userAvatar").isString().optional(),
+  ReviewsController.addReview
 );
 router.post(
   "/uploadCommentImage",
@@ -85,6 +80,13 @@ router.delete(
   body("recipeId").isString(),
   body("commentUserId").isString(),
   commentsController.deleteComment
+);
+router.delete(
+  "/deleteReview",
+  authMiddleware,
+  body("userId").isString(),
+  body("recipeId").isString(),
+  ReviewsController.deleteReview
 );
 
 module.exports = router;
