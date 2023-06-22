@@ -4,17 +4,18 @@ const { body } = require("express-validator");
 
 const authMiddleware = require("../middlewares/auth-middleware");
 const userController = require("../controllers/user-controller");
-const ratingsController = require("../controllers/ratings-controller");
-const commentsController = require("../controllers/comments-controller");
 const ImageCommentController = require("../controllers/image-comment-controller");
 const AvatarController = require("../controllers/avatar-controller");
 const ReviewsController = require("../controllers/reviews-controller");
+const RecipesController = require("../controllers/recipes-controller");
 
 // GET
 router.get("/activate/:link", userController.activate);
 router.get("/refresh", userController.refresh);
 router.get("/users", authMiddleware, userController.getUsers);
 router.get("/review/:id", ReviewsController.getReview);
+router.get("/vegetarian", RecipesController.getVegetarianRecipes);
+router.get("/trending", RecipesController.getTrendingRecipes);
 
 // POST
 router.post(
@@ -73,13 +74,6 @@ router.delete(
   "/deleteFromFavorites",
   authMiddleware,
   userController.deleteFromFavorites
-);
-router.delete(
-  "/deleteComment",
-  authMiddleware,
-  body("recipeId").isString(),
-  body("commentUserId").isString(),
-  commentsController.deleteComment
 );
 router.delete(
   "/deleteReview",
