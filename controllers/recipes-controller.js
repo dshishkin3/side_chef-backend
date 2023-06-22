@@ -18,6 +18,16 @@ class RecipesController {
       return next(err);
     }
   }
+
+  async getRecipe(req, res, next) {
+    try {
+      const recipeId = req.params.id;
+      const data = await RecipesService.getRecipe(recipeId);
+      return res.json(data);
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
 
 module.exports = new RecipesController();

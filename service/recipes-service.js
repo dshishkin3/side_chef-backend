@@ -14,6 +14,13 @@ class RecipesService {
     );
     return data;
   }
+
+  async getRecipe(id) {
+    const { data } = await axios.get(
+      `https://api.spoonacular.com/recipes/${id}/information?apiKey=${process.env.SPOONACULAR_API_KEY}`
+    );
+    return data;
+  }
 }
 
 module.exports = new RecipesService();

@@ -16,6 +16,7 @@ router.get("/users", authMiddleware, userController.getUsers);
 router.get("/review/:id", ReviewsController.getReview);
 router.get("/vegetarian", RecipesController.getVegetarianRecipes);
 router.get("/trending", RecipesController.getTrendingRecipes);
+router.get("/recipe/:id", RecipesController.getRecipe);
 
 // POST
 router.post(
