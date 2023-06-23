@@ -17,6 +17,8 @@ router.get("/review/:id", ReviewsController.getReview);
 router.get("/vegetarian", RecipesController.getVegetarianRecipes);
 router.get("/trending", RecipesController.getTrendingRecipes);
 router.get("/recipe/:id", RecipesController.getRecipe);
+router.get("/search/:name", RecipesController.searchRecipes);
+router.get("/country/:name", RecipesController.countryRecipes);
 
 // POST
 router.post(

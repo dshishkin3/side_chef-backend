@@ -28,6 +28,26 @@ class RecipesController {
       return next(err);
     }
   }
+
+  async searchRecipes(req, res, next) {
+    try {
+      const name = req.params.name;
+      const data = await RecipesService.searchRecipes(name);
+      return res.json(data);
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  async countryRecipes(req, res, next) {
+    try {
+      const name = req.params.name;
+      const data = await RecipesService.countryRecipes(name);
+      return res.json(data);
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
 
 module.exports = new RecipesController();

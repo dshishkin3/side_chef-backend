@@ -21,6 +21,20 @@ class RecipesService {
     );
     return data;
   }
+
+  async searchRecipes(name) {
+    const { data } = await axios.get(
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.SPOONACULAR_API_KEY}&query=${name}&number=100`
+    );
+    return data;
+  }
+
+  async countryRecipes(name) {
+    const { data } = await axios.get(
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.SPOONACULAR_API_KEY}&cuisine=${name}&number=100`
+    );
+    return data;
+  }
 }
 
 module.exports = new RecipesService();
