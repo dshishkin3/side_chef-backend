@@ -8,8 +8,12 @@ class ReviewsService {
     const averageRating =
       reviews.reduce((acc, curr) => acc + curr.score, 0) / reviews.length;
 
-    return averageRating;
+    return {
+      reviews: reviews,
+      averageRating: averageRating
+    };
   }
+
   async addReview(userId, recipeId, score, text, image, userAvatar) {
     const existReview = await ReviewModel.findOne({ userId });
 
