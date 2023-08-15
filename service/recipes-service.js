@@ -16,13 +16,13 @@ class RecipesService {
     return data;
   }
 
-  async getRecipe(id) { 
+  async getRecipe(id) {
     const recipeUrl = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${process.env.SPOONACULAR_API_KEY}`;
     const nutritionUrl = `https://api.spoonacular.com/recipes/${id}/nutritionWidget.json?apiKey=${process.env.SPOONACULAR_API_KEY}`;
 
     const [recipeResponse, nutritionResponse] = await Promise.all([
       axios.get(recipeUrl),
-      axios.get(nutritionUrl)
+      axios.get(nutritionUrl),
     ]);
 
     const review = await reviewsService.getReview(id);
@@ -31,7 +31,9 @@ class RecipesService {
     const nutritionData = nutritionResponse.data;
 
     const fiber = nutritionData.good.find((item) => item.title === "Fiber");
-    const potassium = nutritionData.good.find((item) => item.title === "Potassium");
+    const potassium = nutritionData.good.find(
+      (item) => item.title === "Potassium"
+    );
 
     return {
       recipe: {
@@ -45,15 +47,15 @@ class RecipesService {
         diets: recipeData.diets,
         dishTypes: recipeData.dishTypes,
       },
-      nutrition: {
-        calories: nutritionData.calories,
-        carbs: nutritionData.carbs.replace(/\D/g, ''),
-        fat: nutritionData.fat.replace(/\D/g, ''),
-        protein: nutritionData.protein.replace(/\D/g, ''),
-        fiber: fiber.amount.replace(/\D/g, ''),
-        potassium: potassium.amount.replace(/\D/g, ''),
-      },
-      review
+      nutrition: [
+        { name: "calories", count: nutritionData.calories },
+        { name: "carbs", count: nutritionData.carbs.replace(/\D/g, "") },
+        { name: "fat", count: nutritionData.fat.replace(/\D/g, "") },
+        { name: "protein", count: nutritionData.protein.replace(/\D/g, "") },
+        { name: "fiber", count: fiber.amount.replace(/\D/g, "") },
+        { name: "potassium", count: potassium.amount.replace(/\D/g, "") },
+      ],
+      review,
     };
   }
 
